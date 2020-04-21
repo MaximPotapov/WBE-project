@@ -94,6 +94,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'leadmanager.wsgi.application'
 
 
+JWT_AUTH = {
+    # Authorization:Token xxx
+    'JWT_AUTH_HEADER_PREFIX': 'Token',
+}
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -104,11 +109,17 @@ DATABASES = {
     }
 }
 
-JWT_AUTH = {
-    # Authorization:Token xxx
-    'JWT_AUTH_HEADER_PREFIX': 'Token',
-}
-
+if 'RDS_HOSTNAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['aa1f2wy4gymmguy'],
+            'USER': os.environ['admin'],
+            'PASSWORD': os.environ['admin123'],
+            'HOST': os.environ[' aa1f2wy4gymmguy.cgmvsvsybgs4.us-west-2.rds.amazonaws.com'],
+            'PORT': os.environ[' 3306'],
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
